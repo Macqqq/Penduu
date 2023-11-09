@@ -46,4 +46,3 @@ public static class WordManager
         return words[random.Next(words.Length)];
     }
 }
-

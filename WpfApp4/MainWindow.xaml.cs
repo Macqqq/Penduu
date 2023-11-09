@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Media.Imaging;
-using System.Linq;
 using System.Windows.Threading;
 
 namespace AlphabetButtons
@@ -16,23 +15,42 @@ namespace AlphabetButtons
         private string currentGuess;
         private int mistakeCount;
         private List<string> hangmanImagesPaths = new List<string>()
-    {
-        "1.png",
-        "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png",
-        "7.png"
-    };
+        {
+            "1.png",
+            "2.png",
+            "3.png",
+            "4.png",
+            "5.png",
+            "6.png",
+            "7.png"
+        };
         private int currentImageIndex = 0;
+        private DispatcherTimer timer;
+        private int remainingSeconds;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            InitializeTimer();
             EnsureWordsJsonExists();
             StartNewGame();
+        }
+        private void InitializeTimer()
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += TimerTick;
+        }
+        private void TimerTick(object sender, EventArgs e)
+        {
+            remainingSeconds--;
+            TimerLabel.Content = $"Temps restant : {remainingSeconds} secondes";
+            if (remainingSeconds <= 0)
+            {
+                timer.Stop();
+                MessageBox.Show("Le temps est écoulé !");
+                StartNewGame();
+            }
         }
 
         private void EnsureWordsJsonExists()
@@ -45,23 +63,25 @@ namespace AlphabetButtons
 
         private void StartNewGame()
         {
+            ResetButtonStates();
             secretWord = WordManager.ChooseRandomWord();
             currentGuess = new string('_', secretWord.Length);
             mistakeCount = 0;
-            currentImageIndex = 0; // Réinitialisez l'index de l'image à zéro
-
+            currentImageIndex = 0;
+            remainingSeconds = 30; // Réinitialisez le minuteur à 30 secondes
+            TimerLabel.Content = $"Temps restant : {remainingSeconds} secondes";
             EnableLetterButtons(true);
             UpdateUI();
+            timer.Start();
         }
 
         private void UpdateUI()
         {
             Textpendu.Text = currentGuess;
 
-            // Vérifiez si vous avez atteint le nombre maximum d'images disponibles
             if (currentImageIndex < hangmanImagesPaths.Count)
             {
-                string imagePath = $"C:\\Users\\SLAB60\\source\\repos\\WpfApp4\\WpfApp4\\Images\\{hangmanImagesPaths[currentImageIndex]}";
+                string imagePath = $"C:\\Users\\Mathieu Jeux\\source\\repos\\Penduu\\WpfApp4\\Images\\{hangmanImagesPaths[currentImageIndex]}";
                 BitmapImage imageSource = new BitmapImage(new Uri(imagePath));
                 HangmanImage.Source = imageSource;
             }
@@ -99,6 +119,22 @@ namespace AlphabetButtons
             }
         }
 
+        public void ResetButtonStates()
+        {
+            List<Button> buttonsToReset = new List<Button>
+            {
+                ButtonA, ButtonB, ButtonC, ButtonD, ButtonE, ButtonF, ButtonG,
+                ButtonH, ButtonI, ButtonJ, ButtonK, ButtonL, ButtonM, ButtonN,
+                ButtonO, ButtonP, ButtonQ, ButtonR, ButtonS, ButtonT, ButtonU,
+                ButtonV, ButtonW, ButtonX, ButtonY, ButtonZ
+            };
+
+            foreach (var button in buttonsToReset)
+            {
+                button.Content = button.Name.Substring(6);
+            }
+        }
+
         private void CheckLetter(string letter)
         {
             bool letterFound = false;
@@ -117,7 +153,6 @@ namespace AlphabetButtons
             {
                 mistakeCount++;
 
-                // Incrémente l'index de l'image si vous n'avez pas atteint le maximum
                 if (currentImageIndex < hangmanImagesPaths.Count)
                 {
                     currentImageIndex++;
@@ -130,7 +165,6 @@ namespace AlphabetButtons
                     return;
                 }
             }
-
 
             currentGuess = new string(currentGuessArray);
             UpdateUI();

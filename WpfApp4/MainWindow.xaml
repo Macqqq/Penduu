@@ -13,7 +13,7 @@
             <Setter Property="Width" Value="40"/>
             <Setter Property="Height" Value="40"/>
         </Style>
-        <!-- Plus de styles pour d'autres colonnes si nécessaire -->
+        <!-- Ajoutez d'autres styles de bouton si nécessaire -->
     </Window.Resources>
     <Grid>
         <!-- Dégradé linéaire pour le fond -->
@@ -27,15 +27,15 @@
                 </LinearGradientBrush.GradientStops>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label x:Name="remainingTimeLabel" Content="Temps restant : 30 secondes" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0"/>
 
+        <Label x:Name="TimerLabel" Content="Temps restant : 30 secondes" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <Image x:Name="HangmanImage" Width="200" Height="200" />
         <TextBlock FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" Height="66" Margin="0,10,0,0" Width="362">
-    <Run Language="fr-fr" Text="     "/>
-    <Run Text="Le Pendu" Foreground="#007ACC" FontFamily="Segoe UI"/>
+            <Run Language="fr-fr" Text="     "/>
+            <Run Text="Le Pendu" Foreground="#007ACC" FontFamily="Segoe UI"/>
         </TextBlock>
         <TextBlock Text="_ _ _ _ _ _" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="Textpendu" Margin="0,254,0,0"/>
-        <Button Content="Jouer" Margin="119,332,170,9" RenderTransformOrigin="0.456,-0.55"  x:Name="Buttonactu"></Button>
+        <Button Content="Jouer" Margin="0,355,0,0" RenderTransformOrigin="0.456,-0.55"  x:Name="Buttonactu" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150"/>
 
         <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5">
             <Grid.RowDefinitions>
@@ -54,7 +54,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- First Column -->
+            <!-- Première colonne -->
             <Button Content="A" Width="40" Height="40" Grid.Row="0" Grid.Column="0" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonA"/>
             <Button Content="B" Width="40" Height="40" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonB"/>
             <Button Content="C" Width="40" Height="40" Grid.Row="2" Grid.Column="0" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonC"/>
@@ -63,7 +63,7 @@
             <Button Content="F" Width="40" Height="40" Grid.Row="5" Grid.Column="0" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonF"/>
             <Button Content="G" Width="40" Height="40" Grid.Row="6" Grid.Column="0" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonG"/>
 
-            <!-- Second Column -->
+            <!-- Deuxième colonne -->
             <Button Content="H" Width="40" Height="40" Grid.Row="0" Grid.Column="1" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonH"/>
             <Button Content="I" Width="40" Height="40" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonI"/>
             <Button Content="J" Width="40" Height="40" Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonJ"/>
@@ -72,7 +72,7 @@
             <Button Content="M" Width="40" Height="40" Grid.Row="5" Grid.Column="1" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonM"/>
             <Button Content="N" Width="40" Height="40" Grid.Row="6" Grid.Column="1" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonN"/>
 
-            <!-- Third Column -->
+            <!-- Troisième colonne -->
             <Button Content="O" Width="40" Height="40" Grid.Row="0" Grid.Column="2" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonO"/>
             <Button Content="P" Width="40" Height="40" Grid.Row="1" Grid.Column="2" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonP"/>
             <Button Content="Q" Width="40" Height="40" Grid.Row="2" Grid.Column="2" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonQ"/>
@@ -81,7 +81,7 @@
             <Button Content="T" Width="40" Height="40" Grid.Row="5" Grid.Column="2" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonT"/>
             <Button Content="U" Width="40" Height="40" Grid.Row="6" Grid.Column="2" Style="{StaticResource ButtonStyleCol1}" Click="LetterButtonClick" x:Name="ButtonU"/>
 
-            <!-- Fourth Column -->
+            <!-- Quatrième colonne -->
             <Button Content="V" Width="40" Height="40" Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonV"/>
             <Button Content="W" Width="40" Height="40" Grid.Row="2" Grid.Column="3" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonW"/>
             <Button Content="X" Width="40" Height="40" Grid.Row="3" Grid.Column="3" Style="{StaticResource ButtonStyleCol2}" Click="LetterButtonClick" x:Name="ButtonX"/>

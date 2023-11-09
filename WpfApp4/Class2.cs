@@ -1,14 +1,23 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System.Linq;
+using AlphabetButtons;
 
 public class HangmanGame
 {
+    private MainWindow mainWindow;
+
     public string SecretWord { get; private set; }
     public string CurrentGuess { get; private set; }
     public int MistakeCount { get; private set; }
     public bool IsGameOver => MistakeCount >= 5 || !CurrentGuess.Contains('_');
 
-    public HangmanGame()
+    public HangmanGame(MainWindow mainWindow)
     {
+        this.mainWindow = mainWindow;
         ResetGame();
     }
 
@@ -17,6 +26,7 @@ public class HangmanGame
         SecretWord = WordManager.ChooseRandomWord();
         CurrentGuess = new string('_', SecretWord.Length);
         MistakeCount = 0;
+        mainWindow.ResetButtonStates();
     }
 
     public GameResult CheckLetter(string letter)
